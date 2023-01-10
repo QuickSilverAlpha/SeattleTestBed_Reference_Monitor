@@ -1,4 +1,4 @@
-# SeattleTestBed_Reference_Monitor
+# SeattleTestbed_Reference_Monitor
 Educational Assignment
 
 ## Part 1: Implement a Defensive Security System
