@@ -1,0 +1,56 @@
+def thread1():
+  for i in range(10):
+    myfile.writeat("A", i)
+
+def thread2():
+  for i in range(10):
+    myfile.writeat("\nB", i)
+
+i = 5
+new_read = ''
+prev_read = ''
+
+while i > 0:
+  i = i-1
+  # clean up if the file exists.
+  if "testfile.txt" in listfiles():
+    removefile("testfile.txt")
+
+  myfile=openfile("testfile.txt", True)  #Create a file
+
+  createthread(thread1)
+  sleep(0.00001)
+  createthread(thread2)
+  # assert('B' == myfile.readat(1,0)) # this location should contain a space...
+
+  sleep(0.15)
+
+  if i == 4:
+    prev_read = myfile.readat(None,0)
+    # log(prev_read)
+
+  else:
+    new_read = myfile.readat(None,0)
+    # log(new_read)
+
+  if i < 4:
+    if prev_read != new_read:
+      log("Hacked! No synchronization on the reference code!")
+      break
+
+  #Close the file
+  myfile.close()
+
+
+
+
+#A
+#A\n____B
+#AA____B
+#AA\nB__B
+#AAAB__B
+#AAA\nB_B
+#AAAAB_B
+#AAAA\nBB
+#AAAAABB
+#AAAAA\nB
